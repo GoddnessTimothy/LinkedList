@@ -10,6 +10,22 @@ public class LinkedList {
             next = null;
         }
     }
+    public void deleteKey(int target) {
+        Node prev = null, curr = head;
+        if(curr != null && curr.data == target) {
+            head = curr.next;
+            return;
+        }
+        while(curr != null && curr.data != target) {
+            prev = curr;
+            curr= curr.next;
+        }
+        if(curr == null) {
+            System.out.println("the key was not found!");
+            return;
+        }
+        prev.next = curr.next;
+    }
     public void pushFront(int data) {
         Node newNode = new Node(data);
         newNode.next = head;
@@ -51,6 +67,8 @@ public class LinkedList {
         llist1.pushFront(50);
         llist1.pushFront(70);
         llist1.addToTail(80);
+        llist1.deleteKey(30);
+        llist1.deleteKey(50);
         llist1.printList();
     }
 }
