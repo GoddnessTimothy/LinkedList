@@ -1,14 +1,22 @@
 package com.company;
 
 public class LinkedList {
-    Node head;
-    class Node {
+    static Node head;
+    static class Node {
         int data;
         Node next;
         Node(int d) {
             data = d;
             next = null;
         }
+    }
+    //Remove a node from list.  This will only work if the target node is in the list
+    public void deleteNode(Node target) {
+        //         target
+        //1 -> 2 -> 3-> 4-> 5 -> nullptr
+        Node tempNode = target.next;
+        target.data = tempNode.data;
+        target.next = tempNode.next;
     }
     public void deleteKey(int target) {
         //Create a previous and a current node
@@ -43,7 +51,6 @@ public class LinkedList {
             head = new Node(data);
             return;
         }
-
         Node last = head;
         while(last.next != null) {
             last = last.next;
@@ -60,6 +67,12 @@ public class LinkedList {
         }
         return;
     }
+    public void printLlist(Node node) {
+        while(node != null) {
+            System.out.println(node.data + " ");
+            node = node.next;
+        }
+    }
     public static void main(String[] args) {
         LinkedList llist = new LinkedList();
         LinkedList llist1 = new LinkedList();
@@ -68,12 +81,24 @@ public class LinkedList {
         llist.addToTail(15);
         llist.pushFront(100);
         llist.printList();
+
         System.out.println("\n================");
+
         llist1.pushFront(30);
         llist1.pushFront(50);
         llist1.pushFront(70);
         llist1.addToTail(80);
-        llist1.deleteKey(30);
         llist1.printList();
+
+        System.out.println("\n================");
+
+        LinkedList llist2 = new LinkedList();
+        llist2.head = new Node(55);
+        llist2.head.next = new Node(85);
+        llist2.head.next.next = new Node(75);
+        System.out.println("head: " +  llist2.head.data);
+        llist.deleteNode(llist2.head.next.next);
+        llist2.printLlist(llist2.head);
+        return;
     }
 }
