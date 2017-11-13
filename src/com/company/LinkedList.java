@@ -10,30 +10,37 @@ public class LinkedList {
             next = null;
         }
     }
+    public void swapNodeData(Node node1, Node node2) {
+//        temp = a;
+//        a = b;
+//        b = temp;
+        int tempData = node1.data;
+        node1.data = node2.data;
+        node2.data = tempData;
+    }
     //Remove a node from list.  This will only work if the target node is in the list
     public void deleteNode(Node target) {
         //         target
         //1 -> 2 -> 3-> 4-> 5 -> nullptr
-        Node tempNode = target.next;
-        target.data = tempNode.data;
-        target.next = tempNode.next;
+        target.data = target.next.data;
+        target.next = target.next.next;
     }
     public void deleteKey(int target) {
-        //Create a previous and a current node
+        //Create a previous node, set to null and a current node, set to head
         Node prev = null, curr = head;
         //if the target value is in the head node, set the new head node
         if(curr != null && curr.data == target) {
             head = curr.next;
             return;
         }
-        //Traversing through the list until target is found
+        //Traversing through the list until target is found, while keeping track of prev node
         while(curr != null && curr.data != target) {
             prev = curr;
             curr= curr.next;
         }
         //if target is not in the list, dispaly message and return
         if(curr == null) {
-            System.out.println("the key was not found!");
+            System.out.println("the key " + target + " was not found!");
             return;
         }
         //relink nodes to skip over target node
@@ -80,6 +87,7 @@ public class LinkedList {
         llist.addToTail(10);
         llist.addToTail(15);
         llist.pushFront(100);
+        llist.deleteKey(20);
         llist.printList();
 
         System.out.println("\n================");
@@ -96,8 +104,9 @@ public class LinkedList {
         llist2.head = new Node(55);
         llist2.head.next = new Node(85);
         llist2.head.next.next = new Node(75);
-        System.out.println("head: " +  llist2.head.data);
-        llist.deleteNode(llist2.head.next.next);
+        llist.head.next.next.next = new Node(100);
+        llist2.swapNodeData(llist2.head, llist2.head.next.next.next);
+
         llist2.printLlist(llist2.head);
         return;
     }
